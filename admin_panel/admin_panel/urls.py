@@ -15,15 +15,16 @@ Including another URLconf
 """
 from django.conf import settings
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 from django.conf.urls.static import static
 
-
+from admin_panel.telebot.views import render_webapp
 
 urlpatterns = [
-    path('', admin.site.urls),
-
+    path('admin', admin.site.urls),
+    path('webapp', render_webapp, name='render_webapp'),
+    path('api/', include('telebot.urls')),
 ]
 
 urlpatterns += static(

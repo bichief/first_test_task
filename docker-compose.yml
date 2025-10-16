@@ -1,7 +1,7 @@
 version: "3.1"
 
 services:
-  db:
+  db_2:
     container_name: database
     image: postgres:14
     environment:
@@ -16,14 +16,12 @@ services:
     volumes:
       - ./postgres:/var/lib/postgresql
 
-  django:
+  django_2:
     container_name: admin
     build:
       context: .
     command: >
-      sh -c "python django_app.py makemigrations &&
-      python django_app.py migrate &&
-      python django_app.py runserver 0.0.0.0:8000 --noreload"
+      sh -c "python django_app.py runserver 0.0.0.0:8000 --noreload"
     ports:
       - 8000:8000
     networks:
@@ -32,10 +30,10 @@ services:
     env_file:
       - ".env"
     depends_on:
-      - db
+      - db_2
 
 
-  tgbot:
+  tgbot_2:
     container_name: bot
     build:
       context: .
@@ -46,10 +44,30 @@ services:
     env_file:
       - ".env"
     depends_on:
-      - db
-      - django
+      - db_2
+      - django_2
     volumes:
       - .:/src
+
+
+  nginx_2:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+      - ./admin_panel/staticfiles:/src/admin_panel/staticfiles
+      - ./admin_panel/media:/src/admin_panel/media
+    depends_on:
+      - django_2
+    networks:
+      - botnet
+
+
 
 networks:
   botnet:

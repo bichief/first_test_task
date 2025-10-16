@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-rxe5wz_!d+vd+10i&mx90@-wj-=mk7^+(v1%j=5eb_q0306@vo
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '185.104.112.43', 'www.test.subcore.ru', 'test.subcore.ru']
 
 # Application definition
 
@@ -119,8 +119,11 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # сюда collectstatic сложит всё
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',  # твоя папка admin_panel/static
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

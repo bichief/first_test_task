@@ -1,7 +1,7 @@
 from asgiref.sync import sync_to_async
 from django.db import InterfaceError, connection
 
-from admin_panel.telebot.models import Users
+from admin_panel.telebot.models import Users, Questions
 
 
 @sync_to_async
@@ -45,5 +45,13 @@ def get_user(telegram_id):
 
     try:
         return Users.objects.filter(telegram_id=telegram_id).first()
+    except InterfaceError:
+        connection.close()
+
+
+@sync_to_async
+def get_all_questions():
+    try:
+        return Questions.objects.all()
     except InterfaceError:
         connection.close()

@@ -37,3 +37,17 @@ class Users(CreatedModel):
         verbose_name='Юзернейм',
         help_text='Юзернейм'
     )
+
+
+class Questions(CreatedModel):
+    sender = models.ForeignKey(
+        Users,
+        on_delete=models.CASCADE,
+        related_name='question_owner',
+        verbose_name='Отправитель'
+    )
+
+    question = models.CharField(
+        max_length=500,
+        verbose_name='Вопрос от пользователя'
+    )

@@ -69,7 +69,7 @@ async def start_quest_handler(call: types.CallbackQuery, state: FSMContext):
     await TotemQuiz.first_question.set()
 
 
-@dp.callback_query_handler(Text(startswith="ans_"), state=TotemQuiz.all_states)
+@dp.callback_query_handler(Text(startswith="answer_"), state=TotemQuiz.all_states)
 async def handle_answer(call: types.CallbackQuery, state: FSMContext):
     _, animal, index = call.data.split("_")
     index = int(index)

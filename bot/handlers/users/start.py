@@ -7,8 +7,9 @@ from bot.utils.db_api.db_commands import create_user
 from loader import dp
 
 
-@dp.message_handler(CommandStart())
-async def start_cmd(message: types.Message):
+@dp.message_handler(CommandStart(), state='*')
+async def start_cmd(message: types.Message, state: FSMContext):
+    await state.reset_state(True)
     await create_user(
         name=message.from_user.first_name,
         username=message.from_user.username,

@@ -56,7 +56,7 @@ async def get_question_from_user_handler(message: types.Message, state: FSMConte
     await dp.bot.edit_message_text(
         chat_id=message.from_user.id,
         message_id=data['message_id'],
-        text=f'''✅<b>Ответ готов!</b>
+        text=f'''✅ <b>Ответ готов!</b>
 
 Вопрос: {question}
 
@@ -66,3 +66,4 @@ async def get_question_from_user_handler(message: types.Message, state: FSMConte
 👇Нажми на кнопку ниже''',
         reply_markup=ai_kb()
     )
+    await state.reset_state(True)

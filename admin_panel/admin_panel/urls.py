@@ -24,7 +24,7 @@ from admin_panel.telebot.views import render_webapp
 urlpatterns = [
     path('admin', admin.site.urls),
     path('webapp', render_webapp, name='render_webapp'),
-    path('api/', include('telebot.urls')),
+    path('api/', include('admin_panel.telebot.urls')),
 ]
 
 urlpatterns += static(

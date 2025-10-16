@@ -2,7 +2,7 @@ version: "3.1"
 
 services:
   db_2:
-    container_name: database
+    container_name: database_2
     image: postgres:14
     environment:
       POSTGRES_DB: $DB_NAME
@@ -17,7 +17,7 @@ services:
       - ./postgres:/var/lib/postgresql
 
   django_2:
-    container_name: admin
+    container_name: admin_2
     build:
       context: .
     command: >
@@ -34,7 +34,7 @@ services:
 
 
   tgbot_2:
-    container_name: bot
+    container_name: bot_2
     build:
       context: .
     command: python app.py
@@ -52,7 +52,7 @@ services:
 
   nginx_2:
     image: nginx:latest
-    container_name: nginx
+    container_name: nginx_2
     ports:
       - "80:80"
       - "443:443"
@@ -67,6 +67,15 @@ services:
     networks:
       - botnet
 
+#  certbot:
+#    image: certbot/certbot
+#    container_name: certbot
+#    volumes:
+#      - ./certbot/conf:/etc/letsencrypt
+#      - ./certbot/www:/var/www/certbot
+#    command: certonly --webroot --webroot-path=/var/www/certbot/ --email sashamarx67@gmail.com --agree-tos --no-eff-email -d test.subcore.ru
+#    depends_on:
+#      - nginx_2
 
 
 networks:

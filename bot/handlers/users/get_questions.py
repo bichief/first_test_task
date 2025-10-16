@@ -19,7 +19,7 @@ async def get_questions_cmd(message: types.Message):
 
     lines = []
     for q in questions:
-        created_at = localtime(q.created_at).strftime("%Y-%m-%d %H:%M")
+        created_at = localtime(q.created).strftime("%Y-%m-%d %H:%M")
         name = q.sender.name or q.sender.username or "Без имени"
         username = f"@{q.sender.username}" if q.sender.username else ""
         lines.append(
